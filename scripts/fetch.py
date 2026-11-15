@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-"""抓取候选文献。任何单个源失败都不影响整体，且绝不写入 papers.csv。"""
+"""抓取候选文献：Crossref（按 ISSN 逐刊抓）+ NBER RSS。单源失败不影响整体。"""
 import csv
 import datetime
+import json
 import os
 import sys
 import time
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
@@ -14,39 +17,82 @@ sys.path.insert(0, ROOT)
 DATA = os.path.join(ROOT, "data")
 LOGS = os.path.join(ROOT, "logs")
 os.makedirs(LOGS, exist_ok=True)
-UA = {"User-Agent": "labor-monitor/0.1 (academic use)"}
-
-SOURCES = [
-    ("NBER", "https://back.nber.org/rss/new.xml"),
-    ("IZA", "https://www.iza.org/rss/discussion-papers.xml"),
-    ("CEPR", "https://cepr.org/rss/discussion-papers"),
-]
+UA = {"User-Agent": "labor-monitor/0.5 (mailto:chejinxuan623@users.noreply.github.com)"}
+DAYS = int(os.environ.get("LOOKBACK_DAYS", "21"))
+FIELDS = ["title", "authors", "doi", "source", "publication_date", "url", "version_type"]
 
 
-def _get(url, timeout=10):
+def _get(url, timeout=25):
     req = urllib.request.Request(url, headers=UA)
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
 
 
-def parse_rss(raw):
-    items = []
-    root = ET.fromstring(raw)
-    for it in root.iter():
-        tag = it.tag.split("}")[-1]
-        if tag not in ("item", "entry"):
+def load_venues():
+    p = os.path.join(DATA, "venues.csv")
+    if not os.path.exists(p):
+        return []
+    with open(p, encoding="utf-8-sig", newline="") as f:
+        return [r for r in csv.DictReader(f) if r["status"].startswith("ok") and r["issn"]]
+
+
+def one_venue(v, since):
+    params = {
+        "filter": "issn:%s,from-pub-date:%s" % (v["issn"], since),
+        "rows": "60",
+        "select": "title,DOI,published,author,container-title,type,URL",
+        "sort": "published",
+        "order": "desc",
+    }
+    url = "https://api.crossref.org/works?" + urllib.parse.urlencode(params)
+    j = json.loads(_get(url).decode("utf-8"))
+    items = (j.get("message") or {}).get("items") or []
+    out = []
+    for w in items:
+        if (w.get("type") or "") not in ("journal-article", "article"):
             continue
-        d = {}
-        for child in it:
-            k = child.tag.split("}")[-1]
+        titles = w.get("title") or []
+        title = (titles[0] if titles else "").strip()
+        if not title:
+            continue
+        auth = []
+        for a in (w.get("author") or [])[:12]:
+            nm = " ".join(x for x in [a.get("given", ""), a.get("family", "")] if x).strip()
+            if nm:
+                auth.append(nm)
+        dp = (w.get("published") or {}).get("date-parts") or [[""]]
+        parts = dp[0]
+        date = "-".join(str(x).zfill(2) for x in parts) if parts and parts[0] else ""
+        ct = (w.get("container-title") or [""])[0] or v["resolved_name"] or v["name"]
+        doi = w.get("DOI") or ""
+        out.append({
+            "title": title,
+            "authors": ";".join(auth),
+            "doi": doi,
+            "source": ct,
+            "publication_date": date,
+            "url": ("https://doi.org/" + doi) if doi else (w.get("URL") or ""),
+            "version_type": "Published",
+        })
+    return out
+
+
+def from_nber():
+    raw = _get("https://back.nber.org/rss/new.xml")
+    root = ET.fromstring(raw)
+    items = []
+    for it in root.iter():
+        if it.tag.split("}")[-1] != "item":
+            continue
+        d = {"authors": "", "doi": "", "version_type": "WP", "source": "NBER"}
+        for c in it:
+            k = c.tag.split("}")[-1]
             if k == "title":
-                d["title"] = (child.text or "").strip()
+                d["title"] = (c.text or "").strip()
             elif k == "link":
-                d["url"] = (child.text or child.get("href") or "").strip()
-            elif k == "pubDate" or k == "published" or k == "updated":
-                d["publication_date"] = (child.text or "").strip()[:10]
-            elif k == "creator" or k == "author":
-                d["authors"] = [(child.text or "").strip()]
+                d["url"] = (c.text or "").strip()
+            elif k == "pubDate":
+                d["publication_date"] = (c.text or "").strip()[:16]
         if d.get("title"):
             items.append(d)
     return items
@@ -55,41 +101,56 @@ def parse_rss(raw):
 def main():
     stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     log_path = os.path.join(LOGS, "fetch_%s.log" % stamp)
-    rows, problems = [], []
-    logf = open(log_path, "w", encoding="utf-8")
-    for name, url in SOURCES:
-        # 每个源独立计时、独立失败，逐条落盘
+    since = (datetime.date.today() - datetime.timedelta(days=DAYS)).isoformat()
+    venues = load_venues()
+    rows, logf = [], open(log_path, "w", encoding="utf-8")
+    logf.write("since=%s venues=%d\n" % (since, len(venues)))
+    logf.flush()
+
+    t0 = time.time()
+
+    def work(v):
         try:
-            t0 = time.time()
-            items = parse_rss(_get(url))
-            for d in items:
-                rows.append({
-                    "title": d.get("title", ""),
-                    "authors": ";".join(d.get("authors", []) or []),
-                    "doi": "",
-                    "source": name,
-                    "publication_date": d.get("publication_date", ""),
-                    "url": d.get("url", ""),
-                    "version_type": "WP",
-                })
-            msg = "%s ok=%d %.1fs" % (name, len(items), time.time() - t0)
+            got = one_venue(v, since)
+            return v["name"], got, None
         except Exception as e:
-            msg = "%s FAIL %s: %s" % (name, type(e).__name__, str(e)[:80])
-        problems.append(msg)
-        logf.write(msg + "\n")
-        logf.flush()
+            return v["name"], [], "%s: %s" % (type(e).__name__, str(e)[:70])
+
+    with ThreadPoolExecutor(max_workers=4) as ex:
+        for name, got, err in ex.map(work, venues):
+            if err:
+                logf.write("FAIL %-45s %s\n" % (name[:45], err))
+            else:
+                logf.write("ok   %-45s %d\n" % (name[:45], len(got)))
+            rows.extend(got)
+            logf.flush()
+
+    try:
+        nb = from_nber()
+        rows.extend(nb)
+        logf.write("ok   %-45s %d\n" % ("NBER RSS", len(nb)))
+    except Exception as e:
+        logf.write("FAIL %-45s %s\n" % ("NBER RSS", str(e)[:70]))
+
+    seen, uniq = set(), []
+    for r in rows:
+        key = (r.get("doi") or "").lower().strip() or (r.get("title") or "").lower().strip()
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        uniq.append(r)
 
     out = os.path.join(DATA, "candidates_raw.csv")
     with open(out, "w", encoding="utf-8-sig", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=["title", "authors", "doi", "source",
-                                          "publication_date", "url", "version_type"])
+        w = csv.DictWriter(f, fieldnames=FIELDS)
         w.writeheader()
-        w.writerows(rows)
+        for r in uniq:
+            w.writerow({k: r.get(k, "") for k in FIELDS})
 
-    logf.write("rows=%d\n" % len(rows))
+    logf.write("raw=%d uniq=%d %.1fs\n" % (len(rows), len(uniq), time.time() - t0))
     logf.close()
-    print("\n".join(problems))
-    print("rows", len(rows))
+    print("since=%s raw=%d uniq=%d %.1fs" % (since, len(rows), len(uniq), time.time() - t0))
+    print(logf.name)
 
 
 if __name__ == "__main__":

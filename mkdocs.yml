@@ -63,5 +63,6 @@ nav:
   - 主题: topics/index.md
   - 论文库: papers/index.md
   - 更新日志: changelog.md
+  - 关于: about.md
 
 copyright: 课程项目 · 数据来自 Crossref 与 NBER

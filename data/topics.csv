@@ -1,0 +1,21 @@
+﻿topic_l1,topic_l1_name,topic_l2,topic_l2_name,keywords,active
+T1,劳动供给与家庭,T1.1,参与率与工时,labor supply;participation;hours;work hours,1
+T1,劳动供给与家庭,T1.2,生育与育儿,fertility;childcare;child penalty;parental,1
+T1,劳动供给与家庭,T1.3,家庭内部分工,household;bargaining;division of labor;marriage,1
+T2,劳动需求与企业,T2.1,雇佣调整,hiring;layoff;employment adjustment;separation,1
+T2,劳动需求与企业,T2.2,企业工资溢价,firm wage;wage premium;rent sharing,1
+T2,劳动需求与企业,T2.3,劳动市场势力,monopsony;labor market power;concentration,1
+T3,工资与不平等,T3.1,工资结构,wage structure;wage inequality;earnings,1
+T3,工资与不平等,T3.2,最低工资,minimum wage,1
+T3,工资与不平等,T3.3,收入极化与流动,polarization;mobility;inequality;redistribution,1
+T4,人力资本与教育,T4.1,教育回报,returns to education;schooling;compulsory school,1
+T4,人力资本与教育,T4.2,技能形成与培训,skill;training;human capital;grit,1
+T4,人力资本与教育,T4.3,学校与早期经历,school;early life;childhood;mentoring,1
+T5,迁移与人口,T5.1,国际迁移,immigration;migrant;refugee;migration,1
+T5,迁移与人口,T5.2,国内流动与回流,internal migration;return migration;mobility,1
+T6,歧视与制度,T6.1,性别与年龄歧视,gender;age;discrimination;bias;stereotype,1
+T6,歧视与制度,T6.2,族裔与身份,ethnic;racial;minority;caste,1
+T6,歧视与制度,T6.3,工会与劳动法,union;labor law;regulation;minimum,1
+T7,技术变革与 AI,T7.1,自动化与任务替代,automation;robot;task;displacement,1
+T7,技术变革与 AI,T7.2,生成式 AI,generative ai;artificial intelligence;chatgpt;llm,1
+T7,技术变革与 AI,T7.3,技能偏向型技术变迁,skill-biased;technological change;technology,1

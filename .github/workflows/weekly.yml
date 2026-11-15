@@ -1,0 +1,28 @@
+name: weekly-fetch
+
+on:
+  schedule:
+    - cron: "0 22 * * 0"   # 每周一 06:00 北京时间
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run tests first
+        run: python -m unittest discover -s tests -v
+      - name: Fetch candidates
+        run: python scripts/fetch.py
+      - name: Merge versions
+        run: python scripts/merge_versions.py
+      - name: Commit candidates and logs only
+        run: |
+          git config user.name "labor-monitor-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/candidates_raw.csv data/candidates.csv logs/ || true
+          git commit -m "weekly: candidates $(date +%F)" || echo "nothing to commit"
+          git push || echo "push skipped"

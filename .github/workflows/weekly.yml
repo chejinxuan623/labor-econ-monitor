@@ -5,6 +5,9 @@ on:
     - cron: "0 22 * * 0"   # 每周一 06:00 北京时间
   workflow_dispatch:
 
+permissions:
+  contents: write   # 需要把抓取结果推回仓库
+
 jobs:
   fetch:
     runs-on: ubuntu-latest

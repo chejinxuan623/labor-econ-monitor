@@ -8,7 +8,11 @@ title: "Skill certifications and migrant labor market integration: Experimental 
 | --- | --- |
 | 编号 | C-93F8EF |
 | 来源 | Journal of Development Economics |
-| 档位 | T2 |
+| 建议档位 | T2 |
+| 最终档位 | 待定 |
+| 审核状态 | 待审核 |
+| 证据等级 | &mdash; |
+| 分档理由 | &mdash; |
 | 日期 | 2027-02 |
 | 作者 | Matias Busso、Carolina Gonzalez-Velosa、Juan Muñoz-Morales、Juanita Ruiz、Juan D. Valencia、Cynthia van der Werf |
 | 链接 | https://doi.org/10.1016/j.jdeveco.2026.103949 |

@@ -8,7 +8,11 @@ title: "The impact of regional growth on internal migration: a district-level an
 | --- | --- |
 | 编号 | C-90FAE4 |
 | 来源 | World Development |
-| 档位 | T2 |
+| 建议档位 | T2 |
+| 最终档位 | 待定 |
+| 审核状态 | 待审核 |
+| 证据等级 | &mdash; |
+| 分档理由 | &mdash; |
 | 日期 | 2027-02 |
 | 作者 | Mauro Lanati、Rainer Thiele |
 | 链接 | https://doi.org/10.1016/j.worlddev.2026.107601 |

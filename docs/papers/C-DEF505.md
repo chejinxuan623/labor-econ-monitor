@@ -8,7 +8,11 @@ title: "The Effect of Reducing Welfare Access on Employment, Health, and Childre
 | --- | --- |
 | 编号 | C-DEF505 |
 | 来源 | The Economic Journal |
-| 档位 | T1 |
+| 建议档位 | T1 |
+| 最终档位 | B |
+| 审核状态 | 已审核 |
+| 证据等级 | 标题初筛 |
+| 分档理由 | 福利收紧对劳动供给与子女结果的影响，政策评估范式 |
 | 日期 | 2026-10-31 |
 | 作者 | Jeffrey Hicks、Gaëlle Simard-Duplain、David A Green、William Warburton |
 | 链接 | https://doi.org/10.1093/ej/ueag141 |

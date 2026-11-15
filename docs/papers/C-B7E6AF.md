@@ -8,7 +8,11 @@ title: "Taxing high-skill immigration: Fundamental problems in evaluating immigr
 | --- | --- |
 | 编号 | C-B7E6AF |
 | 来源 | Labour Economics |
-| 档位 | T2 |
+| 建议档位 | T2 |
+| 最终档位 | 待定 |
+| 审核状态 | 待审核 |
+| 证据等级 | &mdash; |
+| 分档理由 | &mdash; |
 | 日期 | 2026-11 |
 | 作者 | Michael A. Clemens |
 | 链接 | https://doi.org/10.1016/j.labeco.2026.102984 |

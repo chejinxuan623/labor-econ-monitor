@@ -8,7 +8,11 @@ title: "Evidence on the Robustness of the Links Between Social Relationships and
 | --- | --- |
 | 编号 | C-6D9BEC |
 | 来源 | Demography |
-| 档位 | T2 |
+| 建议档位 | T2 |
+| 最终档位 | 待定 |
+| 审核状态 | 待审核 |
+| 证据等级 | &mdash; |
+| 分档理由 | &mdash; |
 | 日期 | 2026-11-04 |
 | 作者 | Rosanne Freak-Poli、Stephen P. Jenkins、Michael A. Shields、Trong-Anh Trinh |
 | 链接 | https://doi.org/10.1215/00703370-12879669 |

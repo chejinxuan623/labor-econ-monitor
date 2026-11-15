@@ -1,0 +1,13 @@
+﻿review_id,doi,title,suggested_tier,final_tier,review_status,evidence_level,review_reason,reviewed_on,reviewer
+R-0001,10.1093/ej/ueag147,"Carbon emissions regulation, input-output networks, and firm dynamics: The case of a low-carbon-zone pilot in China",T1,C,已审核,标题初筛,主题为环境规制与企业动态，离劳动力市场较远；若文中含雇佣调整则可升至 B,2026-11-16,chejinxuan623
+R-0002,10.1093/restud/rdag096,"Daddy's Girl: Daughters, Managerial Decisions, and Gender Inequality",T1,B,已审核,标题初筛,以子女性别作准实验，识别思路干净；主题与迁移研究的距离中等,2026-11-16,chejinxuan623
+R-0003,10.1093/qje/qjag057,Labor Market Tightness and the Reversal of Inequality Trends in Germany,T1,A,已审核,标题初筛,劳动市场紧张度与工资结构，德国行政数据，属劳动经济学核心议题,2026-11-16,chejinxuan623
+R-0004,10.1093/qje/qjag054,Why Do Union Jobs Pay More? New Evidence from Matched Employer-Employee Data,T1,A,已审核,标题初筛,雇主—雇员匹配识别工会溢价，方法与我们作者—机构匹配同源,2026-11-16,chejinxuan623
+R-0005,10.1257/aer.20241561,Inequality and Racial Backlash: Evidence from the Reconstruction Era and the Freedmen's Bureau,T1,C,已审核,标题初筛,经济史与政治经济议题，与迁移研究无直接关系,2026-11-16,chejinxuan623
+R-0006,10.1257/aer.20240766,Union Bargaining Power and the Amenity-Wage Trade-Off,T1,B,已审核,标题初筛,补偿性工资差异的经典议题，可作方法论参考,2026-11-16,chejinxuan623
+R-0007,10.1257/pol.20240813,Impacts of Corporate Tax Cuts on Firms and Workers: Evidence from Small Businesses,T1,B,已审核,标题初筛,税收归宿与事件研究，中国企业数据可迁移,2026-11-16,chejinxuan623
+R-0008,10.1257/pol.20240830,Can You Erase the Mark of a Criminal Record? Labor Market Impacts of Criminal Record Remediation,T1,B,已审核,标题初筛,政策评估范式，涉及劳动供给与统计性歧视,2026-11-16,chejinxuan623
+R-0009,10.1257/pol.20240586,Childhood Health Shocks and the Intergenerational Transmission of Inequality,T1,B,已审核,标题初筛,人力资本代际传递，数据要求较高,2026-11-16,chejinxuan623
+R-0010,10.1093/jeea/jvag070,The Scope of Statistical Discrimination: An Experimental Study on Gender Barriers in Tech,T1,B,已审核,标题初筛,实验设计可借鉴；Crossref 中的标题被截断，需核对完整标题后再定,2026-11-16,chejinxuan623
+R-0011,10.1093/ej/ueag141,"The Effect of Reducing Welfare Access on Employment, Health, and Children's Long-Run Outcomes",T1,B,已审核,标题初筛,福利收紧对劳动供给与子女结果的影响，政策评估范式,2026-11-16,chejinxuan623
+R-0012,10.1093/ej/ueag138,Union Membership and Native-Immigrant Labour Market Gaps,T1,A,已审核,标题初筛,移民与本土劳动力市场差距，与回流研究的问题结构同源,2026-11-16,chejinxuan623

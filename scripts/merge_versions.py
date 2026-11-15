@@ -8,13 +8,18 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from lib.dedup import find_match                   # noqa: E402
+from lib.review import attach as attach_review     # noqa: E402
+from lib.review import load as load_reviews        # noqa: E402
+from lib.review import order_of                    # noqa: E402
 from lib.relevance import classify, score          # noqa: E402
 from lib.venues import is_labor_venue, label, rank, venue_tier  # noqa: E402
 
 DATA = os.path.join(ROOT, "data")
 FIELDS = ["priority", "title", "authors", "source", "venue_tier", "tier_label",
           "publication_date", "url", "relevance", "rel_score", "decision",
-          "matched_paper_id", "reason", "score"]
+          "matched_paper_id", "reason", "score",
+          "suggested_tier", "final_tier", "review_status", "evidence_level",
+          "review_reason"]
 
 
 def load(name):
@@ -63,6 +68,18 @@ def main():
                 "score": "%.3f" % m.get("score", 0.0),
             })
         out.append(row)
+
+    # 挂人工审核结果（独立表，永不被重写覆盖）
+    reviews = load_reviews(os.path.join(DATA, "reviews.csv"))
+    for row in out:
+        if row["decision"] == "off_topic":
+            row.update({"suggested_tier": "", "final_tier": "", "review_status": "",
+                        "evidence_level": "", "review_reason": ""})
+            continue
+        attach_review(row, reviews)
+        # 已审核的按人工档位排序，未审核的仍按期刊层级
+        if row["review_status"] == "已审核" and row["final_tier"]:
+            row["priority"] = order_of(row["final_tier"])
 
     # 顶刊在前；同档内新到旧
     out.sort(key=lambda x: (x["priority"], _neg_date(x["publication_date"])))

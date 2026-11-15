@@ -8,7 +8,11 @@ title: "Daddy’s Girl: Daughters, Managerial Decisions, and Gender Inequality"
 | --- | --- |
 | 编号 | C-ACC8BA |
 | 来源 | Review of Economic Studies |
-| 档位 | T1 |
+| 建议档位 | T1 |
+| 最终档位 | B |
+| 审核状态 | 已审核 |
+| 证据等级 | 标题初筛 |
+| 分档理由 | 以子女性别作准实验，识别思路干净；主题与迁移研究的距离中等 |
 | 日期 | 2026-11-13 |
 | 作者 | Maddalena Ronchi、Nina Smith |
 | 链接 | https://doi.org/10.1093/restud/rdag096 |

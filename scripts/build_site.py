@@ -5,8 +5,12 @@ import datetime
 import hashlib
 import html
 import os
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+
+from lib.review import effective_tier  # noqa: E402
 DATA = os.path.join(ROOT, "data")
 DOCS = os.path.join(ROOT, "docs")
 TODAY = datetime.date.today()
@@ -40,13 +44,15 @@ def card(c):
     t = esc(c.get("title"))
     src = esc(c.get("source"))[:60]
     date = esc(c.get("publication_date"))
-    tier = esc(c.get("venue_tier"))
+    tier = esc(effective_tier(c))
+    reviewed = c.get("review_status") == "已审核"
     cls = tier_cls(tier)
     url = (c.get("url") or "").strip()
     body = (
         '<span class="t">%s</span>'
-        '<span class="m"><span class="tier %s">%s</span>%s &middot; %s</span>'
-        % (t, cls, tier if tier else "&mdash;", src, date)
+        '<span class="m"><span class="tier %s">%s</span>%s%s &middot; %s</span>'
+        % (t, cls, tier if tier else "&mdash;",
+           "" if reviewed else " <em>建议</em>", src, date)
     )
     if url:
         return '<a class="paper" href="%s" target="_blank" rel="noopener">%s</a>' % (esc(url), body)
@@ -136,14 +142,17 @@ def build_index(cands, topics):
 
 
 def build_papers(cands):
-    rows = ["| 档位 | 标题 | 来源 | 日期 |", "| --- | --- | --- | --- |"]
+    rows = ["| 档位 | 标题 | 来源 | 日期 | 状态 |", "| --- | --- | --- | --- | --- |"]
     for c in cands:
         title = esc(c.get("title")).replace("|", "/")
-        rows.append("| %s | [%s](%s.md) | %s | %s |" % (
-            esc(c.get("venue_tier")) or "&mdash;", title, pid(c),
-            esc(c.get("source"))[:40], esc(c.get("publication_date"))))
-    write("papers/index.md", "# 论文库\n\n共 %d 篇待审，按档位排序。\n\n%s\n"
-          % (len(cands), "\n".join(rows)))
+        status = "已审核" if c.get("review_status") == "已审核" else "待审核"
+        rows.append("| %s | [%s](%s.md) | %s | %s | %s |" % (
+            esc(effective_tier(c)) or "&mdash;", title, pid(c),
+            esc(c.get("source"))[:40], esc(c.get("publication_date")), status))
+    reviewed = sum(1 for c in cands if c.get("review_status") == "已审核")
+    write("papers/index.md",
+          "# 论文库\n\n共 %d 篇待审，其中 %d 篇已分档。\n\n%s\n"
+          % (len(cands), reviewed, "\n".join(rows)))
 
     for c in cands:
         t = esc(c.get("title"))
@@ -159,7 +168,11 @@ def build_papers(cands):
             "| --- | --- |",
             "| 编号 | %s |" % pid(c),
             "| 来源 | %s |" % esc(c.get("source")),
-            "| 档位 | %s |" % (esc(c.get("venue_tier")) or "&mdash;"),
+            "| 建议档位 | %s |" % (esc(c.get("suggested_tier")) or "&mdash;"),
+            "| 最终档位 | %s |" % (esc(c.get("final_tier")) or "待定"),
+            "| 审核状态 | %s |" % (esc(c.get("review_status")) or "待审核"),
+            "| 证据等级 | %s |" % (esc(c.get("evidence_level")) or "&mdash;"),
+            "| 分档理由 | %s |" % (esc(c.get("review_reason")) or "&mdash;"),
             "| 日期 | %s |" % esc(c.get("publication_date")),
             "| 作者 | %s |" % authors,
             "| 链接 | %s |" % (esc(c.get("url")) or "&mdash;"),

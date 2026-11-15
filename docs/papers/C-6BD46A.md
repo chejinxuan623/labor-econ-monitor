@@ -8,7 +8,11 @@ title: "From a distance: How the social organisation of labour conditions person
 | --- | --- |
 | 编号 | C-6BD46A |
 | 来源 | Work, Employment and Society |
-| 档位 | T2 |
+| 建议档位 | T2 |
+| 最终档位 | 待定 |
+| 审核状态 | 待审核 |
+| 证据等级 | &mdash; |
+| 分档理由 | &mdash; |
 | 日期 | 2026-11-04 |
 | 作者 | Anne Gravelle Antoni、Hamza Asshidi、Janna Rose、Nathalie Louisgrand |
 | 链接 | https://doi.org/10.1177/09500170261469828 |

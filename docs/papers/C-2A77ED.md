@@ -8,7 +8,11 @@ title: "Rising inequality, declining mobility: The evolution of intergenerationa
 | --- | --- |
 | 编号 | C-2A77ED |
 | 来源 | Journal of Public Economics |
-| 档位 | T2 |
+| 建议档位 | T2 |
+| 最终档位 | 待定 |
+| 审核状态 | 待审核 |
+| 证据等级 | &mdash; |
+| 分档理由 | &mdash; |
 | 日期 | 2026-11 |
 | 作者 | Julia Baarck、Moritz Bode、Andreas Peichl |
 | 链接 | https://doi.org/10.1016/j.jpubeco.2026.105811 |

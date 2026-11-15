@@ -8,7 +8,11 @@ title: "Adult children&#x27;s human capital accumulation and parents&#x27; risky
 | --- | --- |
 | 编号 | C-AE43D3 |
 | 来源 | Journal of Development Economics |
-| 档位 | T2 |
+| 建议档位 | T2 |
+| 最终档位 | 待定 |
+| 审核状态 | 待审核 |
+| 证据等级 | &mdash; |
+| 分档理由 | &mdash; |
 | 日期 | 2027-01 |
 | 作者 | Cong Li、Feng Liu、Linlin Wu、Ruofei Xu |
 | 链接 | https://doi.org/10.1016/j.jdeveco.2026.103874 |

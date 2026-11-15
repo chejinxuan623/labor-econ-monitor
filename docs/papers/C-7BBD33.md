@@ -8,7 +8,11 @@ title: "Wealth Inequality Among Families in a Changing Demographic Landscape: Ev
 | --- | --- |
 | 编号 | C-7BBD33 |
 | 来源 | Demography |
-| 档位 | T2 |
+| 建议档位 | T2 |
+| 最终档位 | 待定 |
+| 审核状态 | 待审核 |
+| 证据等级 | &mdash; |
+| 分档理由 | &mdash; |
 | 日期 | 2026-10-30 |
 | 作者 | Lisa Klein、Maximilian Longmuir、Philipp M. Lersch |
 | 链接 | https://doi.org/10.1215/00703370-12877885 |

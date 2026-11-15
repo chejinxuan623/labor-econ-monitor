@@ -8,7 +8,11 @@ title: "Teachers’ desired mobility to disadvantaged schools: Do financial ince
 | --- | --- |
 | 编号 | C-0B53CF |
 | 来源 | Economics of Education Review |
-| 档位 | T2 |
+| 建议档位 | T2 |
+| 最终档位 | 待定 |
+| 审核状态 | 待审核 |
+| 证据等级 | &mdash; |
+| 分档理由 | &mdash; |
 | 日期 | 2026-12 |
 | 作者 | Julien Silhol、Lionel Wilner |
 | 链接 | https://doi.org/10.1016/j.econedurev.2026.102839 |

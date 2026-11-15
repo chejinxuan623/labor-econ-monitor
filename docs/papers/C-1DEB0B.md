@@ -8,7 +8,11 @@ title: "AI as Shared Business Infrastructure: Firm Growth and the Distribution o
 | --- | --- |
 | 编号 | C-1DEB0B |
 | 来源 | NBER |
-| 档位 | T3 |
+| 建议档位 | T3 |
+| 最终档位 | 待定 |
+| 审核状态 | 待审核 |
+| 证据等级 | &mdash; |
+| 分档理由 | &mdash; |
 | 日期 |  |
 | 作者 | &mdash; |
 | 链接 | https://www.nber.org/papers/w36003#fromrss |

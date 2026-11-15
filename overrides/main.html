@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <meta name="description" content="{{ config.site_description }}">
+  <meta property="og:title" content="{{ page.title if page and page.title else config.site_name }}">
+  <meta property="og:description" content="{{ config.site_description }}">
+  <meta property="og:type" content="website">
+{% endblock %}
+
+{% block announce %}
+  <span style="font-size:0.62rem;letter-spacing:0.04em">
+    每周一自动抓取 · 人工分档 A / B / C
+  </span>
+{% endblock %}

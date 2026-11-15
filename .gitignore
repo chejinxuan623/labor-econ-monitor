@@ -5,3 +5,5 @@ tests/_tmpdata/
 tests/_tmpdata2/
 data/backup/
 logs/*.log
+site/
+.cache/

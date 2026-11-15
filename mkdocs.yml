@@ -1,0 +1,67 @@
+site_name: 劳动经济学研究监测
+site_description: 每周追踪劳动经济学新论文，按主题归档
+site_author: chejinxuan623
+docs_dir: docs
+site_dir: site
+use_directory_urls: true
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: zh
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: 切换到夜间
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到日间
+  # 不加载 Google Fonts（国内不可达），改用系统字体栈，见 extra.css
+  font: false
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - toc.follow
+    - content.code.copy
+  icon:
+    logo: material/chart-scatter-plot
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: "¶"
+      toc_depth: 3
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+
+nav:
+  - 首页: index.md
+  - 本周精选: weekly/index.md
+  - 主题: topics/index.md
+  - 论文库: papers/index.md
+  - 更新日志: changelog.md
+
+copyright: 课程项目 · 数据来自 Crossref 与 NBER
